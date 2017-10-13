@@ -1,0 +1,1 @@
+sklada sie on z dwuch obrazkow <br> <img src='eg1.png'> i jakis tekst dookola tego obrazka oraz <br> <img src='eg2.png'> drugi obrazek z jakims opisem

@@ -1,0 +1,49 @@
+<html>
+	<body style="margin:0;">
+		<canvas width="1600" height="900" id="canvas"></canvas>
+		 
+		<script>
+			var w = window.innerWidth;
+			var h = window.innerHeight;
+			var d = Math.sqrt(h*h+w*w);
+			var a = Math.floor(d/20+1)*20;
+			console.log("ilosc="+a+" <br> przekatna="+d+" <br> wysokosc="+h+" szerokosc="+w);
+			function clearScreen(){
+				document.body.innerHTML="<canvas width='"+w+"' height='"+h+"' id='canvas'>";
+			}
+			function getRandomColor() {
+				var letters = '0123456789ABCDEF'.split('');
+				var color = '#';
+				for (var i = 0; i < 6; i++ ) {
+					color += letters[Math.floor(Math.random() * 16)];
+				}
+				return color;
+			}
+			function katToRad(kat){return kat*Math.PI/180; }
+			function draw() {
+				var canvas = document.getElementById('canvas');
+				 if (canvas.getContext) {
+					var c = canvas.getContext('2d');
+					c.fillStyle="black";
+					c.fillRect(0,0,w, h);
+					c.save();
+					c.rotate(katToRad(-45));
+					j=-200;
+					for(x=0;x<=a;x+=20){
+						for(i=j;i<=a;i+=20){
+							c.fillStyle=getRandomColor();
+							c.fillRect(i,x,15,15);
+						}
+						j-=15;
+					}
+					c.restore();
+				 }
+			}
+			function play(){
+				clearScreen();
+				play = setInterval('draw()',100);
+			}
+			setTimeout('play()',100);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,243 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="description" content="Simple 'game' made with js, html, css">
+		<meta name="keywords" content="HTML,CSS,JavaScript,Kulki">
+		<meta name="author" content="Rafa³ Bernat">
+		<link rel="Shortcut icon" href="SnowIcon.png">
+		<title>SnowFall</title>
+		<style>
+			@font-face {
+				font-family: trsMillion;
+				src: url("http://rafalber.cba.pl/Games/trs-million.otf") format("opentype");
+			}
+			html{
+				border-bottom:1px solid red;
+				border-left:1px solid red;
+				border-right:1px solid red;
+			}
+			body{
+				margin:0;
+				padding:0;
+				background-color:black;
+				overflow:hidden;
+			}
+			*{
+				font-family:trsMillion;
+				cursor:crosshair;
+				color:orange;
+			}
+			.buble{
+				position:absolute;
+				padding:0;
+				margin:0;
+				border-radius:10px;
+				width:10px;
+				height:10px;
+				background-color:rgba(255,255,255,0.5);
+			}
+			.bubleChoosen{
+				background-color:red;
+			}
+			#scoore{
+				text-align:center;
+				width:300px;
+				font-size:20px;
+				margin:0 auto;
+			}
+			#cookie{
+				position:absolute;
+				bottom:0;
+				left:0;
+				text-align:center;
+				background-color:#888;
+				width:100%;
+				height:30px;
+			}
+			button{
+				color: #FFB300;
+				box-shadow: 0 0;
+				border-width: 3px;
+				border-style: outset;
+				border-color: #888;
+				background-color: #666;
+			}
+			button:hover{
+				cursor:pointer;
+			}
+			a{
+				font-size:0px;
+			}
+		</style>
+		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
+		
+	</head>
+	<body >
+		<custom id="holder">
+			<div id="scoore">sample text</div>
+			<footer id="cookie">This site uses COOKIES!!! By Viewing it you accept our delicious cookies <button onClick="accpetCookies()">OK</button></footer>
+		
+		<script>
+			Number.prototype.clamp = function(min, max) {
+				return Math.min(Math.max(this, min), max);
+			};
+			var scoore;
+			var bestScoore = 0;
+			var bubles;
+			var ChoosenOne;
+			var maxBubleCount = 80;
+			var force;
+			var speed;
+			var x;
+			var y;
+			var msg="";
+			var w = parseInt(window.innerWidth);
+			var h = parseInt(window.innerHeight);
+			var Start;
+			var Create;
+			var cookie=false;
+			var custom = document.getElementById("holder").innerHTML;
+			function getCookie(cname) {
+				var name = cname + "=";
+				var ca = document.cookie.split(';');
+				for(var i=0; i<ca.length; i++) {
+					var c = ca[i];
+					while (c.charAt(0)==' ') c = c.substring(1);
+					if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+				}
+				return "";
+			}
+			var lbest=getCookie("best");
+			function removeAds(){
+				document.body.innerHTML = custom;
+				document.getElementById("scoore").style.marginTop = h/2;
+				if (lbest!=null && lbest!="") {accpetCookies();}
+			}
+			function accpetCookies(){
+				document.getElementById("cookie").style.display = "none";
+				cookie=true;
+				if (lbest==null) {document.cookie="best=0";}
+				if (lbest=="") {document.cookie="best=0";}
+			}
+			function start(){
+				scoore=0;
+				speed=1.33;
+				force=1.33;
+				Start = setInterval('FixedUpdate()',32);
+				Create = setInterval('createBuble()',Math.floor(Math.random()*1000));
+				console.log("started");
+			}
+			function FixedUpdate(){
+				bubles = document.getElementsByClassName("buble");
+				ChoosenOne = document.getElementsByClassName("bubleChoosen");
+				destroyBuble();
+				forceCalculation();
+				rePositionBuble();
+				if(parseInt(bestScoore)<parseInt(scoore)){
+					bestScoore=scoore;
+				}
+				updateScoore();
+				speed+=0.005;
+			}
+			
+			
+			
+			function rePositionBuble(){
+				for(i=0;i<bubles.length;i++){
+					bubles[i].style.left=parseFloat(bubles[i].style.left) + force;
+					bubles[i].style.top=parseFloat(bubles[i].style.top) + speed;
+				}
+			}
+			function mouseCalculation(e){
+				x = e.clientX;
+				y = e.clientY;
+			}
+			function collision(){
+				ChoosenOne[0].style.left=randomWidthOnScreen();
+				ChoosenOne[0].style.top="0";
+				scoore++;
+			}
+			function forceCalculation(){
+				force=(force+(Math.random()*0.1-0.05)).clamp(-0.5,0.5);
+				
+			}
+			function createBuble(){
+				if(bubles.length<maxBubleCount){
+					if(ChoosenOne.length==0){
+						var div = document.createElement("DIV");
+						div.className="buble bubleChoosen";
+						div.style.left=randomWidthOnScreen();
+						div.style.top="0";
+						div.setAttribute("onmouseover", "collision()");
+						document.body.appendChild(div);
+					}else{
+						var div = document.createElement("DIV");
+						div.className="buble";
+						if(bestScoore>20){div.style.backgroundColor=getRandomColor();}
+						div.style.left=randomWidthOnScreen();
+						div.style.top="0";
+						document.body.appendChild(div);
+					}
+				}
+			}
+			function destroyBuble(){
+				for(i=0;i<bubles.length;i++){
+					if(parseFloat(bubles[i].style.top)>=h-20 || parseFloat(bubles[i].style.left)>=w-20 || parseFloat(bubles[i].style.left)<=20){
+						if(bubles[i].className == "buble bubleChoosen"){
+							scoore--;
+							
+						}
+						document.body.removeChild(bubles[i]);
+					}
+				}
+			}
+			function updateScoore(){
+				if(scoore>=0){
+					document.getElementById("scoore").innerHTML="<h2>score: "+scoore+"</h2>";
+				}else{
+					if(cookie){
+						if(parseInt(bestScoore)>parseInt(getCookie("best"))){
+							msg = "<br>NEW BEST SCORE!!! "+bestScoore;
+							document.cookie="best="+bestScoore;
+						}else{
+							msg = "<br>Best score: "+parseInt(getCookie("best"));
+						}
+					}
+					removeAds();
+					clearInterval(Start);
+					clearInterval(Create);
+					document.getElementById("scoore").innerHTML="YOU LOOSE!<br>Youre scoore: "+bestScoore+msg+"<br><button onClick='start()'>Restart!</button>";
+					document.getElementById("cookie").style.display = "none";
+				}
+			}
+			function randomWidthOnScreen(){
+				return Math.floor(Math.random()*(w-20)+10);
+			}
+			function removeLinks(){
+				var x = document.getElementsByClassName("cbalink");
+				console.log(x.length);
+				/*var l = x[0].getElementsByTagName("a");
+				console.log(l.length);
+				if(l.length!=0){
+					for(i=0;i<l.length;i++){
+						l[i].setAttribute("href", "");
+					}
+					console.log("usunieta "+x.length+" linkow ze strony");
+				}*/
+			}
+			function getRandomColor() {
+				var letters = '0123456789ABCDEF'.split('');
+				var color = '#';
+				for (var i = 0; i < 6; i++ ) {
+					color += letters[Math.floor(Math.random() * 16)];
+				}
+				return color;
+			}
+			setTimeout(removeAds(),30);
+			setTimeout(start(),35);
+			setTimeout(removeLinks(),100);
+			
+		</script>
+		</custom>
+	</body>
+</html>	

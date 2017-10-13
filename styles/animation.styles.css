@@ -1,0 +1,75 @@
+html{
+/* Chrome, Safari, Opera */
+-webkit-animation-name: mythird;				/*-=for crhme and Safari and Opera run animation for that class/command/id which name is: name;=-*/
+-webkit-animation-duration: 0.8s;				/*-=for crhme and Safari and Opera animation duration of animation will be:1s;=-*/
+-webkit-animation-timing-function: linear;		/*-=for crhme and Safari and Opera animation time will be counted with function: type;=-*/
+-webkit-animation-delay: 0s;					/*-=for crhme and Safari and Opera delay until animation will start when the page is loaded: time;=-*/
+-webkit-animation-iteration-count: infinite;	/*-=for crhme and Safari and Opera how many times animation must be played: times;=-*/
+-webkit-animation-direction: normal;			/*-=for crhme and Safari and Opera which direction animation will start be playing: alternate/normal;=-*/
+-webkit-animation-play-state: running;			/*-=for crhme and Safari and Opera state of animation=-*/
+/* Standard syntax */
+animation-timing-function: linear;				/*-=animation time will be counted with function: type;=-*/
+animation-delay: 0s;							/*-=delay until animation will start when the page is loaded: time;=-*/
+animation-iteration-count: infinite;			/*-=how many times animation must be played: times;=-*/
+animation-direction: normal;					/*-=direction animation will start be playing: alternate/normal;=-*/
+animation-play-state: running;					/*-=state of animation=-*/
+}
+#breath{
+	animation-duration: 5.0s;							/*-=animation duration of animation will be:1s;=-*/
+	animation-name: breathing;						/*-=run animation for that class/command/id which name is: name;=-*/
+}
+#rainbow{
+	animation-duration: 1.8s;							/*-=animation duration of animation will be:1s;=-*/
+	animation-name: rainbow;						/*-=run animation for that class/command/id which name is: name;=-*/
+}
+/* Chrome, Safari, Opera */
+@-webkit-keyframes rainbow{
+0%    {background-color:rgba(255,0  ,0  ,0.3);}/*19|25*/
+12.5% {background-color:rgba(255,255,0  ,0.3);}/*9|15*/
+25%   {background-color:rgba(0  ,255,0  ,0.3);}/*5|11*/
+37.5% {background-color:rgba(0  ,255,255,0.3);}/*9|15*/
+50%   {background-color:rgba(0  ,0  ,255,0.3);}/*19|25*/
+62.5% {background-color:rgba(0  ,255,255,0.3);}/*29|35*/
+75%   {background-color:rgba(0  ,255,0  ,0.3);}/*33|39*/
+87.5% {background-color:rgba(255,255,0  ,0.3);}/*29|35*/
+100%  {background-color:rgba(255,0  ,0  ,0.3);}/*19|25*/
+}
+
+/* Standard syntax */
+@keyframes rainbow{
+0%    {background-color:rgba(255,0  ,0  ,0.3);}
+12.5% {background-color:rgba(255,255,0  ,0.3);}
+25%   {background-color:rgba(0  ,255,0  ,0.3);}
+37.5% {background-color:rgba(0  ,255,255,0.3);}
+50%   {background-color:rgba(0  ,0  ,255,0.3);}
+62.5% {background-color:rgba(0  ,255,255,0.3);}
+75%   {background-color:rgba(0  ,255,0  ,0.3);}
+87.5% {background-color:rgba(255,255,0  ,0.3);}
+100%  {background-color:rgba(255,0  ,0  ,0.3);}
+}
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-*/
+/* Chrome, Safari, Opera */
+@-webkit-keyframes breathing{
+0%    {background-color:rgb(0, 45, 179);}/*19|25*/
+/*12.5% {background:radial-gradient(#4da5ff,#0000b3);}/*9|15*/
+/*25%   {background:radial-gradient(#66b2ff,#0000e6);}/*5|11*/
+/*37.5% {background:radial-gradient(#80bfff,#1a1aff);}/*9|15*/
+50%   {background-color:rgb(0, 102, 255)}/*19|25*/
+/*62.5% {background:radial-gradient(#80bfff,#1a1aff);}/*29|35*/
+/*75%   {background:radial-gradient(#66b2ff,#0000e6);}/*33|39*/
+/*87.5% {background:radial-gradient(#4da5ff,#0000b3);}/*29|35*/
+100%  {background-color:rgb(0, 45, 179);}/*19|25*/
+}
+
+/* Standard syntax */
+@keyframes breathing{
+0%	 {background-color:rgb(0, 45, 179);}/*19|25*/
+/*12.5% {background:radial-gradient(#4da5ff,#0000b3);}/*9|15*/
+/*25%   {background:radial-gradient(#66b2ff,#0000e6);}/*5|11*/
+/*37.5% {background:radial-gradient(#80bfff,#1a1aff);}/*9|15*/
+50%	 {background-color:rgb(0, 102, 255)}/*19|25*/
+/*62.5% {background:radial-gradient(#80bfff,#1a1aff);}/*29|35*/
+/*75%   {background:radial-gradient(#66b2ff,#0000e6);}/*33|39*/
+/*87.5% {background:radial-gradient(#4da5ff,#0000b3);}/*29|35*/
+100% {background-color:rgb(0, 45, 179);}/*19|25*/
+}
